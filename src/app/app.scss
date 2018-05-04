@@ -14,3 +14,19 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.txt-center{
+    text-align: center;
+}
+
+.content-holder{
+    background: url(../../assets/imgs/kpc_pilot_booking.png) no-repeat center;
+    background-size:cover;
+}
+.menu-color{
+    color: #2491b5;
+}
+
+.menu-color ion-icon{
+    margin-right: 10px;
+}

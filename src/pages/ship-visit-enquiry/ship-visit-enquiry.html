@@ -1,0 +1,44 @@
+
+<ion-header>
+
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Ship Visit Enquiry</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="content-holder">
+  <form [formGroup]="searchForm">
+      <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item>
+                  <ion-label fixed>SCN</ion-label>
+                  <ion-input type="text" formControlName="scn"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label fixed>VSL Name</ion-label>
+                  <ion-input type="text" formControlName="vslName"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label fixed>Booking Date</ion-label>
+                  <ion-datetime displayFormat="MMM DD YYYY" formControlName="date"></ion-datetime>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="txt-center">
+              <button ion-button round full  item-start icon-left color="secondary" (click)="search()">
+                  <ion-icon name="search" ></ion-icon>
+                  Search
+                </button>
+          </ion-col>
+        </ion-row>
+  </form>
+    
+</ion-content>
