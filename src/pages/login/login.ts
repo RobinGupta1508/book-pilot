@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, Form, FormGroup, Validators } from '@angular/forms';
 import { LoaderServiceProvider } from '../../providers/loader-service/loader-service';
 import { AlertProvider } from '../../providers/alert/alert';
+import { CommonRequestServiceProvider } from '../../providers/common-request-service/common-request-service';
 import { HomePage } from '../home/home';
 /**
  * Generated class for the LoginPage page.
@@ -17,7 +18,7 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
   loginForm : FormGroup;
-    constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private loaderService: LoaderServiceProvider, private alertService: AlertProvider) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private loaderService: LoaderServiceProvider, private alertService: AlertProvider, private commonRequestServiceProvider: CommonRequestServiceProvider) {
       this.buildForm();
   }
 
@@ -31,6 +32,7 @@ export class LoginPage {
   login(){
     console.log(this.loginForm);
     if(this.loginForm.valid){
+      this.commonRequestServiceProvider.login(this.loginForm.value);
       this.loaderService.showLoader();
       this.navCtrl.setRoot(HomePage);
       this.loaderService.hideLoader();

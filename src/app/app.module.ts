@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoaderServiceProvider } from '../providers/loader-service/loader-service';
 import { AlertProvider } from '../providers/alert/alert';
+import { CommonRequestServiceProvider } from '../providers/common-request-service/common-request-service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { AlertProvider } from '../providers/alert/alert';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     ReactiveFormsModule
   ],
@@ -49,7 +52,8 @@ import { AlertProvider } from '../providers/alert/alert';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderServiceProvider,
-    AlertProvider
+    AlertProvider,
+    CommonRequestServiceProvider
   ]
 })
 export class AppModule {}
