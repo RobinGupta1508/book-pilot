@@ -17,26 +17,26 @@ import { HomePage } from '../home/home';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  loginForm : FormGroup;
-    constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private loaderService: LoaderServiceProvider, private alertService: AlertProvider, private commonRequestServiceProvider: CommonRequestServiceProvider) {
-      this.buildForm();
+  loginForm: FormGroup;
+ 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private loaderService: LoaderServiceProvider, private alertService: AlertProvider, private commonRequestServiceProvider: CommonRequestServiceProvider) {
+    this.buildForm();
   }
 
-  buildForm(){
+  buildForm() {
     this.loginForm = this.fb.group({
       userName: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])]
     })
   }
-  
-  login(){
+
+  login() {
     console.log(this.loginForm);
-    if(this.loginForm.valid){
-      this.commonRequestServiceProvider.login(this.loginForm.value);
-      this.loaderService.showLoader();
-      this.navCtrl.setRoot(HomePage);
-      this.loaderService.hideLoader();
-    }else{
+    if (this.loginForm.valid) {
+      this.commonRequestServiceProvider.login(this.loginForm.value).then(data => {
+        this.navCtrl.setRoot(HomePage);
+      })
+    } else {
       this.alertService.showAlert("Error", "Both fields are required");
     }
   }

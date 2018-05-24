@@ -22,6 +22,10 @@ export class BookingRequestPage {
       moveType: [''],
       date : ['']
     })
+  };
+
+  saveBooking(){
+    
   }
 
 }

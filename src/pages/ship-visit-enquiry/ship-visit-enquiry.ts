@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonRequestServiceProvider } from '../../providers/common-request-service/common-request-service';
@@ -9,9 +10,9 @@ import { AlertProvider } from '../../providers/alert/alert';
 })
 export class ShipVisitEnquiryPage {
   searchForm: FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
     private fb: FormBuilder, private commonRequestServiceProvider: CommonRequestServiceProvider,
-   private alert: AlertProvider) {
+    private alert: AlertProvider) {
     this.buildForm();
   }
 
@@ -19,19 +20,24 @@ export class ShipVisitEnquiryPage {
     console.log('ionViewDidLoad ShipVisitEnquiryPage');
   }
 
-  buildForm(){
+  buildForm() {
     this.searchForm = this.fb.group({
       scn: [''],
       vslName: [''],
-      date : ['']
+      date: ['']
     })
   }
 
-  search(form){
+  search(form) {
+    let datePipe = new DatePipe("en-US");
+
     console.log("serach form data", this.searchForm.value);
-    if(form.value.scn || form.value.vslName || form.value.date){
+    if (form.value.scn || form.value.vslName || form.value.date) {
+      const input = form.value;
+      input.date = datePipe.transform(input.date, 'MM/dd/yyyy');
+      input['pilotControlFlag'] = false;
       this.commonRequestServiceProvider.shipVisitEnquiry(form.value);
-    }else{
+    } else {
       this.alert.showAlert("Error", "SCN or VesselName or Booking Date is required");
     }
   }
