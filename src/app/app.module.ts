@@ -17,7 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoaderServiceProvider } from '../providers/loader-service/loader-service';
 import { AlertProvider } from '../providers/alert/alert';
 import { CommonRequestServiceProvider } from '../providers/common-request-service/common-request-service';
-
+import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     MyApp,
@@ -34,6 +34,7 @@ import { CommonRequestServiceProvider } from '../providers/common-request-servic
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     ReactiveFormsModule
   ],
   bootstrap: [IonicApp],

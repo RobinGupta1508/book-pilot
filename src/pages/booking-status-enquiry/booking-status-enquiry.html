@@ -18,32 +18,8 @@
 
 <ion-content padding class="content-holder">
   <ion-list>
-    <button ion-item (click)="enquiryClick()">
-      0 Booked
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      77 APPROVED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      0 CONFIRMED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      38 ACCEPTED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      87 UNCONFIRMED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      6 CLOSED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      0 REJECTED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      18 CANCELLED
-    </button>
-    <button ion-item (click)="enquiryClick()">
-      596 COMPLETED
+    <button ion-item (click)="enquiryClick(booking)" *ngFor="let booking of bookingList">
+      {{booking.bookingStatusCount}} {{booking.bookingStatus}}
     </button>
   </ion-list>
 </ion-content>

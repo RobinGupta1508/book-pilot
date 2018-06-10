@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertProvider } from '../alert/alert';
 import { LoaderServiceProvider } from '../loader-service/loader-service';
+import { Storage } from '@ionic/storage';
 /*
   Generated class for the CommonRequestServiceProvider provider.
 
@@ -17,8 +18,13 @@ export class CommonRequestServiceProvider {
     }
   };
   userData: any = {};
-  constructor(public http: HttpClient, private alert: AlertProvider, private loaderServiceProvider: LoaderServiceProvider) {
+  constructor(public http: HttpClient, private alert: AlertProvider, private loaderServiceProvider: LoaderServiceProvider, private storage: Storage) {
     console.log('Hello CommonRequestServiceProvider Provider');
+    this.storage.get("userData").then((userData) => {
+      if(userData){
+        this.userData = userData;
+      }
+    })
   }
 
   login(inputData) {
@@ -31,6 +37,7 @@ export class CommonRequestServiceProvider {
           this.loaderServiceProvider.hideLoader();
           if (!res.statusDesc && res.statusCode === '00') {
             this.userData = res;
+            this.storage.set('userData', this.userData);
             resolve(this.userData);
           }else{
             this.alert.showAlert("Login Failed!", res.statusDesc);
@@ -46,7 +53,7 @@ export class CommonRequestServiceProvider {
 
   shipVisitEnquiry(data) {
     this.loaderServiceProvider.showLoader();
-    let searchData = `userId=${this.userData.userId}`;
+    let searchData = `userId=${this.userData.loginId}`;
     searchData = data.scn ? searchData + `&scn=${data.scn}` : searchData;
     searchData = data.vslName ? searchData + `&vesselName=${data.vslName}` : searchData;
     searchData = data.date ? searchData + `&bookingDate=${data.date}` : searchData;
@@ -74,7 +81,8 @@ export class CommonRequestServiceProvider {
 
 
   getStatusEnquire(data) {
-    let searchData = `userId=${this.userData.userId}`;
+    this.loaderServiceProvider.showLoader();
+    let searchData = `userId=${this.userData.loginId}`;
     const apiUrl = this.apiEndpoint + '/countbookingsbystatus';
     let promise = new Promise((resolve, reject) => {
       this.http.post(apiUrl, searchData, this.config)
@@ -94,7 +102,9 @@ export class CommonRequestServiceProvider {
   }
 
 
-  saveBookingRequest() {
+   saveBookingRequest() {
 
   }
+
+  
 }

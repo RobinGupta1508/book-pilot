@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonRequestServiceProvider } from '../../providers/common-request-service/common-request-service';
 import { AlertProvider } from '../../providers/alert/alert';
 @Component({
@@ -10,6 +10,7 @@ import { AlertProvider } from '../../providers/alert/alert';
 })
 export class ShipVisitEnquiryPage {
   searchForm: FormGroup;
+  bookingList = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private fb: FormBuilder, private commonRequestServiceProvider: CommonRequestServiceProvider,
     private alert: AlertProvider) {
@@ -36,7 +37,13 @@ export class ShipVisitEnquiryPage {
       const input = form.value;
       input.date = datePipe.transform(input.date, 'MM/dd/yyyy');
       input['pilotControlFlag'] = false;
-      this.commonRequestServiceProvider.shipVisitEnquiry(form.value);
+      this.commonRequestServiceProvider.shipVisitEnquiry(form.value).then((res: any)=>{
+        console.log("Ship search result", res);
+        this.bookingList = res.bookingList;
+        if(this.bookingList && this.bookingList.length == 0){
+          this.alert.showAlert("","No Records Found!!");
+        }
+      })
     } else {
       this.alert.showAlert("Error", "SCN or VesselName or Booking Date is required");
     }

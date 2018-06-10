@@ -1,10 +1,9 @@
-
 <ion-header>
 
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Ship Visit Enquiry</ion-title>
   </ion-navbar>
 
@@ -13,32 +12,74 @@
 
 <ion-content padding class="content-holder">
   <form [formGroup]="searchForm">
-      <ion-row>
-          <ion-col>
-            <ion-list inset>
-              <ion-item>
-                  <ion-label fixed>SCN</ion-label>
-                  <ion-input type="text" formControlName="scn"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label fixed>VSL Name</ion-label>
-                  <ion-input type="text" formControlName="vslName"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label fixed>Booking Date</ion-label>
-                  <ion-datetime displayFormat="MM DD YYYY" formControlName="date"></ion-datetime>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="txt-center">
-              <button ion-button round full  item-start icon-left color="secondary" (click)="search(searchForm)">
-                  <ion-icon name="search" ></ion-icon>
-                  Search
-                </button>
-          </ion-col>
-        </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          <ion-item>
+            <ion-label fixed>SCN</ion-label>
+            <ion-input type="text" formControlName="scn"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label fixed>VSL Name</ion-label>
+            <ion-input type="text" formControlName="vslName"></ion-input>
+          </ion-item>
+          <ion-item >
+            <ion-label fixed>Booking Date</ion-label>
+            <ion-datetime displayFormat="MM DD YYYY" formControlName="date"></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="txt-center">
+        <button ion-button round full item-start icon-left color="secondary" (click)="search(searchForm)">
+          <ion-icon name="search"></ion-icon>
+          Search
+        </button>
+      </ion-col>
+    </ion-row>
   </form>
-    
+
+
+  <ion-card class="border-round" *ngFor="let booking of bookingList">
+
+    <ion-card-header>
+      {{booking.vesselName}}
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <p >
+          <code></code>
+          <strong>SCN</strong>{{booking.scn}}
+          <strong>Shipping Agent</strong>: {{booking.agent}}
+          <br>
+
+          <strong>ETA</strong>: {{booking.etaDate}}
+          <br>
+          <strong>ETB</strong>:{{booking.etbDate}}
+          <br>
+          <strong>Terminal</strong>: {{booking.terminal}}
+          <br>
+          <strong>From Wharf</strong>: {{booking.wharfFrom}}
+          <br>
+          <strong>To Wharf</strong>: {{booking.wharfTo}}
+          <br>
+          <strong>Booking Date</strong>: {{booking.bookingDate}}
+          <br>
+          <strong>Cancelled Date</strong>: {{booking.cancelledDate}}
+          <br>
+          <strong>Move Type</strong>: {{booking.moveType}}
+          <br>
+          <strong>Booking Status</strong>: {{booking.bookingStatus}}
+          <br>
+          <strong>Primary Visit</strong>: {{booking.primaryVisit}}</p>
+
+        <p >
+          <code></code>
+        </p>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>
